@@ -8,7 +8,6 @@
 #
 FROM debian:bookworm-slim AS build
 
-WORKDIR /
 RUN <<EOF
     apt-get -yq  update
     apt-get -yq install build-essential cmake libusb-1.0-0-dev pkg-config wget unzip
@@ -24,16 +23,19 @@ EOF
 
 FROM alpine:latest
 
+WORKDIR /spy
+COPY --from=build /usr/local/lib /usr/local/lib
+COPY spyserver-linux-x64.tgz .
+
 RUN <<EOF
-    apk add libstdc++ rtl-sdr libgcc gcompat
+    apk --no-cache add libstdc++ rtl-sdr libgcc gcompat
     adduser -D sdr
     adduser sdr sdr
+    tar xzf spyserver-linux-x64.tgz
+    rm spyserver-linux-x64.tgz
+    rm spyserver_ping
 EOF
-
-COPY --from=build /usr/local/lib /usr/local/lib
-COPY ./spyserver /usr/local/bin
-COPY ./spyserver.conf /etc
 
 EXPOSE 5555
 USER sdr
-CMD ["/usr/local/bin/spyserver", "/etc/spyserver.conf"]
+CMD ["/spy/spyserver", "/spy/spyserver.config"]
