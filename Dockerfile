@@ -1,14 +1,11 @@
-#  Dockerfile for building sdrconnect docker image
+# Dockerfile to build spyserver image
 #
-#  D.G. Adams 2023-09-28
-#
-#  Notes:  This file relies on udev rules for the airspy hf+ being set
-#          to allow all users read/write access. create etc/udev/rules.d/67-Airspy.rules with
-#  SUBSYSTEM=="usb",ENV{DEVTYPE}=="usb_device",ATTRS{idVendor}=="03eb",ATTRS{idProduct}=="800c",MODE:="0666"
-#
+# D. G. Adams 2024-09-16
+
 FROM debian:bookworm-slim AS build
 
 RUN <<EOF
+#   Make airspy libraries
     apt-get -yq  update
     apt-get -yq install build-essential cmake libusb-1.0-0-dev pkg-config wget unzip
     wget https://github.com/airspy/airspyhf/archive/master.zip
@@ -18,24 +15,29 @@ RUN <<EOF
     cmake ../
     make
     make install
-EOF
-#########################################################
 
-FROM alpine:latest
+#   Get spyserver from airspy
+    wget "https://airspy.com/?ddownload=4262EOF" -O spyserver-linux-x64.tgz
+EOF
+
+#########################################################
+# Install binaries and libraries from build into
+# an alpaquita (alpine glibc) image.
+
+FROM bellsoft/alpaquita-linux-base:stream-glibc AS install
 
 WORKDIR /spy
 COPY --from=build /usr/local/lib /usr/local/lib
-COPY spyserver-linux-x64.tgz .
+COPY --from=build /airspyhf-master/build/spyserver-linux-x64.tgz .
 
 RUN <<EOF
-    apk --no-cache add libstdc++ rtl-sdr libgcc gcompat
-    adduser -D sdr
-    adduser sdr sdr
+    apk --no-cache add libusb libstdc++ eudev
+    adduser -D spy
+    adduser spy spy
     tar xzf spyserver-linux-x64.tgz
     rm spyserver-linux-x64.tgz
-    rm spyserver_ping
 EOF
 
 EXPOSE 5555
-USER sdr
+USER spy
 CMD ["/spy/spyserver", "/spy/spyserver.config"]
