@@ -4,6 +4,8 @@ This project allows a HF+ to be run remotely.
 ## Notes:
 - Built on an Alpine Linux image to keep the size below 14 MB.
 - Build this with "docker buildx build -t spy-server ." 
+- For now includes the binary "spyserver" until I
+can get around to pulling it from the web.
 ## Usage:
 I generally run this with a docker compose file:
 ```
