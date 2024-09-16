@@ -1,0 +1,15 @@
+# Public web server
+# this server connects to a hf+ usb device
+#
+# D. G. Adams 2024-Aug-16
+#
+name: spyserver
+services:
+  spyserver:
+    container_name: spyserver
+    image: spyserver
+    restart: unless-stopped
+    devices:
+      - "/dev/bus/usb"
+    ports:
+      - 5555:5555

@@ -1,0 +1,31 @@
+# Spy Server AMD64 Docker Image
+A Dockerized Airspy HF+ Discovery server.
+This project allows a HF+ to be run remotely.
+## Notes:
+- The final install image is built on alpaquita a derivative of alpine linux using 
+the glibc libraries.
+- Build this with "docker buildx build -t spy-server ." 
+## Usage:
+I generally run this with a docker compose file:
+```
+# spy-server
+# this server connects to an Airspy hf+ Discovery  usb device
+# and shares it on the network for use with client sdr console
+# software like sdr++.
+#
+# D. G. Adams 2024-Aug-16
+#
+name: spy-server
+services:
+  spy-server:
+    container_name: spy-server
+    image: spy-server:alpine
+    restart: unless-stopped
+#    init: true
+    devices:
+      - /dev/bus/usb
+    ports:
+      - 5555:5555
+```
+## Ackowledgements
+- See: https://airspy.com/airspy-hf-discovery/
