@@ -32,12 +32,10 @@ COPY --from=build /airspyhf-master/build/spyserver-linux-x64.tgz .
 
 RUN <<EOF
     apk --no-cache add libusb libstdc++ eudev
-    adduser -D spy
-    adduser spy spy
     tar xzf spyserver-linux-x64.tgz
     rm spyserver-linux-x64.tgz
 EOF
 
 EXPOSE 5555
-USER spy
+USER nobody
 CMD ["/spy/spyserver", "/spy/spyserver.config"]
