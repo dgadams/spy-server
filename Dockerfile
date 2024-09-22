@@ -31,7 +31,7 @@ COPY --from=build /usr/local/lib /usr/local/lib
 COPY --from=build /airspyhf-master/build/spyserver-linux-x64.tgz .
 
 RUN <<EOF
-    apk --no-cache add libusb libstdc++ eudev
+    apk --no-cache add libusb libstdc++
     tar xzf spyserver-linux-x64.tgz
     rm spyserver-linux-x64.tgz
 EOF
