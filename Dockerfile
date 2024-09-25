@@ -24,19 +24,33 @@ EOR
 
 #########################################################
 
-FROM bellsoft/alpaquita-linux-base:stream-glibc AS install
+FROM bellsoft/alpaquita-linux-base:stream-glibc AS filesystem
+
 WORKDIR /spy
 
 # Get spyserver and libraries from build.
 ADD  https://airspy.com/?ddownload=4262EOF ./spy.tgz
-COPY --from=build /usr/local/lib           /usr/local/lib
+COPY --from=build /usr/local/lib  /usr/local/lib
 
 RUN <<EOR
     apk --no-cache add libusb libstdc++
     tar -xzf spy.tgz
     rm spy.tgz
-EOR
 
+#   Now remove some alpaquita stuff we don't need
+    rm -rf /lib/gconv
+    rm -rf /lib/locale
+    rm -rf /usr/sbin/sln
+    rm -rf /usr/sbin/ldconfig*
+    rm -rf /usr/share/zoneinfo
+    rm -rf /usr/share/X11
+EOR
+#####################################################################
+
+FROM scratch AS install
+
+COPY --from=filesystem / /
 EXPOSE 5555
 USER nobody
+WORKDIR /spy
 CMD ["/spy/spyserver", "/spy/spyserver.config"]
