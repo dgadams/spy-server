@@ -1,0 +1,83 @@
+	rm -rf apt* arch b2sum base* chage chcon chfn chrt chsh cksum
+    rm -rf find* gp* grep gzip h* i* lo* lsblk lscpu lsfd lsipc lsirq
+    rm -rf lslocks lslogins lsmem lsns mawk mkfifo mknod mount
+    rm -rf newgrp nice nl nstat numfmt od partx perl* pr* ptx
+    rm -rf rdma re* sc* se* sha* shred shuf sleep sort split ss stat stdbuf
+    rm -rf stty sync ta* test tic tsort ucl* umount unshare up* vdir
+    rm -rf w* x* y* z* piaware-config piaware-status
+    rm -rf dpkg* du diff dir dash csplit date expr df touch mkdir dd dmesg
+    rm -rf cp mv factor ln chown rm su diff3 chgrp passwd chmod sdiff join
+    rm -rf rmdir tr choom sum cmp md5sum dircolors last timeout pinky cut
+    rm -rf uniq fmt cat runcon te expand mktemp pwd unexpand fold groups nohup
+
+
+    rm -rf /lib/x86_64-linux-gnu/perl-base
+    rm -rf /lib/x86_64-linux-gnu/krb5
+    rm -rf /lib/x86_64-linux-gnu/gconv
+    rm -rf /lib/x86_64-linux-gnu/libsystemd*
+    rm -rf /lib/x86_64-linux-gnu/libsmartcols*
+    rm -rf /lib/x86_64-linux-gnu/libreadline*
+    rm -rf /lib/x86_64-linux-gnu/libp11-kit*
+    rm -rf /lib/x86_64-linux-gnu/libkrb5*
+    rm -rf /lib/x86_64-linux-gnu/libicu*
+    rm -rf /lib/x86_64-linux-gnu/libgnutls*
+    rm -rf /lib/x86_64-linux-gnu/libdb*
+    rm -rf /lib/x86_64-linux-gnu/libboost*
+    rm -rf /lib/x86_64-linux-gnu/libnettle*
+    rm -rf /lib/x86_64-linux-gnu/libndn2*
+    rm -rf /lib/x86_64-linux-gnu/libcuuc*
+    rm -rf /lib/x86_64-linux-gnu/libgmp*
+    rm -rf /lib/x86_64-linux-gnu/libbpf*
+    rm -rf /lib/x86_64-linux-gnu/libapt*
+    rm -rf /lib/x86_64-linux-gnu/libxxhash*
+    rm -rf /lib/x86_64-linux-gnu/libtirpc*
+    rm -rf /lib/x86_64-linux-gnu/libnsl*
+    rm -rf /lib/x86_64-linux-gnu/libhogweed*
+    rm -rf /lib/x86_64-linux-gnu/libgssapi*
+    rm -rf /lib/x86_64-linux-gnu/liblzma5*
+    rm -rf /lib/x86_64-linux-gnu/libffi*
+    rm -rf /lib/x86_64-linux-gnu/libunistring*
+    rm -rf /lib/x86_64-linux-gnu/libmount*
+    rm -rf /lib/x86_64-linux-gnu/libblkid*
+    rm -rf /lib/x86_64-linux-gnu/libgcrypt*
+    rm -rf /lib/x86_64-linux-gnu/libsepol.so.2
+    rm -rf /lib/x86_64-linux-gnu/libzstd.so.1.5.4
+    rm -rf /lib/x86_64-linux-gnu/libsemanage.so.2
+    rm -rf /lib/x86_64-linux-gnu/libidn2.so.0.3.8
+    rm -rf /lib/x86_64-linux-gnu/libext2fs.so.2.4
+
+
+    rm -rf perl-base
+    rm -rf krb5
+    rm -rf gconv
+    rm -rf libsystemd*
+    rm -rf libsmartcols*
+    rm -rf libreadline*
+    rm -rf libp11-kit*
+    rm -rf libkrb5*
+    rm -rf libicu*
+    rm -rf libgnutls*
+    rm -rf libdb*
+    rm -rf libboost*
+    rm -rf libnettle*
+    rm -rf libndn2*
+    rm -rf libcuuc*
+    rm -rf libgmp*
+    rm -rf libbpf*
+    rm -rf libapt*
+    rm -rf libxxhash*
+    rm -rf libtirpc*
+    rm -rf libnsl*
+    rm -rf libhogweed*
+    rm -rf libgssapi*
+    rm -rf liblzma5*
+    rm -rf libffi*
+    rm -rf libunistring*
+    rm -rf libmount*
+    rm -rf libblkid*
+    rm -rf libgcrypt*
+    rm -rf libsepol.so.2
+    rm -rf libzstd.so.1.5.4
+    rm -rf libsemanage.so.2
+    rm -rf libidn2.so.0.3.8
+    rm -rf libext2fs.so.2.4

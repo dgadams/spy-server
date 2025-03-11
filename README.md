@@ -2,11 +2,12 @@
 A Dockerized Airspy HF+ Discovery server.
 This project allows a HF+ to be run remotely.
 ## Notes:
-- Built on an Alpaquita Linux an Alpine Linux/glibc OS.
+- Built on an debian-slim linux.
+    - Many unneeded libraries and commands are removed to shrink the footprint.
     - spy-server image size is 34 MB.
 - Build this with "docker buildx build -t spy-server ."
-- Pulls the spyserver binary from Airspy 
-         
+- Pulls the spyserver binary from Airspy
+
 ## Usage:
 I generally run this with a docker compose file:
 ```
