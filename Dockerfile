@@ -1,10 +1,7 @@
 # Dockerfile to build spyserver image
 #
-# D. G. Adams 2024-09-16
+# D. G. Adams 2025-March-11
 #
-# Must use alpaquita!  Alpine has issues with relocating libmvec.so.1
-# Most likely a glibc incompatibility that alpaquita can fix.
-
 FROM debian:bookworm-slim AS dga-build
 WORKDIR /
 
@@ -22,33 +19,32 @@ RUN <<EOR
     make install
 EOR
 
-#########################################################
-#   Pull spyserver binary from web and copy libs from build above.
-#   Then load dependencies
-
-FROM debian:bookworm-slim AS dga-filesystem
-
+# Download spyserver binary
 WORKDIR /spy
 ADD  https://airspy.com/?ddownload=4262EOF ./spy.tgz
+RUN  tar -xzf spy.tgz && rm spy.tgz
+
+########################################################
+# Layer to build the filesystem. Loads dependancies then muntz files.
+
+FROM debian:bookworm-slim AS dga-filesystem
+WORKDIR /spy
+COPY --from=dga-build /spy /spy
 COPY --from=dga-build /usr/local/lib  /usr/local/lib
 COPY spy-muntz.sh .
 RUN <<EOR
-    tar -xzf spy.tgz
     apt-get -yq update
     apt-get -yq install libusb-1.0-0
     apt-get clean
-    rm -rf /var/lib/apt/lists/*
-    rm spy.tgz
-    rm /usr/local/lib/*.a
 
 #   Remove lots of unneeded files
     ./spy-muntz.sh
     rm spy-muntz.sh
 EOR
 #####################################################################
+# Copy filesystem to scratch base image which removes deleted files.
 
 FROM scratch AS dga-install
-
 COPY --from=dga-filesystem / /
 EXPOSE 5555
 USER nobody
