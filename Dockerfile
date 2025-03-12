@@ -34,12 +34,13 @@ COPY --from=dga-build /usr/local/lib  /usr/local/lib
 COPY spy-muntz.sh .
 RUN <<EOR
     apt-get -yq update
-    apt-get -yq install libusb-1.0-0
+    apt-get -yq install libusb-1.0-0 busybox
     apt-get clean
 
-#   Remove lots of unneeded files
+#   Remove lots of unneeded files and install busybox
     ./spy-muntz.sh
-    rm spy-muntz.sh
+    rm spy-muntz.sh /usr/bin/rm
+    /usr/bin/busybox --install -s
 EOR
 #####################################################################
 # Copy filesystem to scratch base image which removes deleted files.

@@ -20,16 +20,17 @@
     rm -rf /usr/sbin/*
 
     cd /usr/bin
-    rm !(bash|ls|more|rm)
+    rm !(busybox|rm)
 
 #   Remove select libraries
-    rm -rf /usr/lib/apt
-    rm -rf /usr/lib/systemd
+    cd /usr/lib
+    rm -rf !(x86_64-linux-gnu)
 
 #   Remove everything but what we need from x86_64_linux-gnu
-    cd /lib/x86_64-linux-gnu
+    cd /usr/lib/x86_64-linux-gnu
     EXCLUDE="!(libstdc++*|libc.*|libm.*|libmvec*|libselinux*"
     EXCLUDE+="|libpcre2*|ld-linux*|libudev*|libtinfo*"
-    EXCLUDE+="|libusb*|libmd*|libdl*|libpthread*|libgcc_s*)"
+    EXCLUDE+="|libusb*|libmd*|libdl*|libpthread*|libgcc_s*"
+    EXCLUDE+="|librt*|libresolv.*)"
     rm -rf $EXCLUDE
 

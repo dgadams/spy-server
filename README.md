@@ -4,7 +4,7 @@ This project allows a HF+ to be run remotely.
 ## Notes:
 - Built on an debian-slim linux.
     - Many unneeded libraries and commands are removed to shrink the footprint.
-    - spy-server image size is 34 MB.
+    - spy-server image size is just under 10 MB.
 - Build this with "docker buildx build -t spy-server ."
 - Pulls the spyserver binary from Airspy
 
@@ -26,7 +26,7 @@ name: spy-server
 services:
   spy-server:
     container_name: spy-server
-    image: spy-server:alpine
+    image: dgadams/spy-server
     restart: unless-stopped
     devices:
       - /dev/bus/usb
