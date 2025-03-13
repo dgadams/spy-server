@@ -39,8 +39,8 @@ RUN <<EOR
 
 #   Remove lots of unneeded files and install busybox
     ./spy-muntz.sh
-    rm spy-muntz.sh /usr/bin/rm
-    /usr/bin/busybox --install -s
+    /bin/busybox --install -s
+    rm spy-muntz.sh
 EOR
 #####################################################################
 # Copy filesystem to scratch base image which removes deleted files.

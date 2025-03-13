@@ -9,19 +9,6 @@
 #   Need to add extended globbing so rm !() works
     shopt -s extglob
 
-#   Nuke some misc stuff, /usr/sbin and /usr/bin
-    rm -rf /var/lib/dpkg
-    rm -rf /var/lib/apt
-    rm -rf /var/cache/debconf
-    rm -rf /usr/share/doc
-    rm -rf /usr/share/zoneinfo
-    rm -rf /usr/share/perl5
-    rm -rf /usr/share/common-licenses
-    rm -rf /usr/sbin/*
-
-    cd /usr/bin
-    rm !(busybox|rm)
-
 #   Remove select libraries
     cd /usr/lib
     rm -rf !(x86_64-linux-gnu)
@@ -33,4 +20,17 @@
     EXCLUDE+="|libusb*|libmd*|libdl*|libpthread*|libgcc_s*"
     EXCLUDE+="|librt*|libresolv.*)"
     rm -rf $EXCLUDE
+
+#   Nuke some misc stuff, /usr/sbin and /usr/bin
+    rm -rf /var/lib/dpkg
+    rm -rf /var/lib/apt
+    rm -rf /var/cache/debconf
+    rm -rf /usr/share/doc
+    rm -rf /usr/share/zoneinfo
+    rm -rf /usr/share/perl5
+    rm -rf /usr/share/common-licenses
+    rm -rf /usr/sbin/*
+
+    cd /usr/bin
+    rm !(busybox)
 
