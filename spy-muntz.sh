@@ -13,24 +13,25 @@
     cd /usr/lib
     rm -rf !(x86_64-linux-gnu)
 
-#   Remove everything but what we need from x86_64_linux-gnu
-    cd /usr/lib/x86_64-linux-gnu
-    EXCLUDE="!(libstdc++*|libc.*|libm.*|libmvec*|libselinux*"
-    EXCLUDE+="|libpcre2*|ld-linux*|libudev*|libtinfo*"
-    EXCLUDE+="|libusb*|libmd*|libdl*|libpthread*|libgcc_s*"
-    EXCLUDE+="|librt*|libresolv.*)"
-    rm -rf $EXCLUDE
+# remove all libraries except ...
+	cd /usr/lib/x86_64-linux-gnu
+	EXC="!(libc.*|ld-linux*"							# basic c library
+#	EXC+="|libtinfo*"									# needed for bash
+#	EXC+="|libselinux*|libacl.*|libattr.*|libpcre*"		# needed for cp
+	EXC+="|libresolv.*"									# needed for busybox
+	EXC+="|libm.*|libmvec*|libselinux*|libpcre2*|"		# For spy-server
+	EXC+="|libudev*|libusb*|libmd*|libdl*|"
+	EXC+="|libpthread*|libgcc_s*|librt*|libstdc++.*"
+	EXC+=")"
+	rm -rf $EXC
 
 #   Nuke some misc stuff, /usr/sbin and /usr/bin
     rm -rf /var/lib/dpkg
     rm -rf /var/lib/apt
     rm -rf /var/cache/debconf
-    rm -rf /usr/share/doc
-    rm -rf /usr/share/zoneinfo
-    rm -rf /usr/share/perl5
-    rm -rf /usr/share/common-licenses
+	rm -rf /var/cache/apt
+    rm -rf /usr/share
     rm -rf /usr/sbin/*
 
     cd /usr/bin
     rm !(busybox)
-
