@@ -16,8 +16,6 @@
 # remove all libraries except ...
 	cd /usr/lib/x86_64-linux-gnu
 	EXC="!(libc.*|ld-linux*"							# basic c library
-#	EXC+="|libtinfo*"									# needed for bash
-#	EXC+="|libselinux*|libacl.*|libattr.*|libpcre*"		# needed for cp
 	EXC+="|libresolv.*"									# needed for busybox
 	EXC+="|libm.*|libmvec*|libselinux*|libpcre2*|"		# For spy-server
 	EXC+="|libudev*|libusb*|libmd*|libdl*|"
@@ -27,7 +25,7 @@
 
 #   Nuke anything not needed in the container
     cd /var && rm -rf !(nothing)
-    cd /etc && rm -rf apt dpkg
+    cd /etc && !(passwd|group|gshadow|shadow)
     cd /usr && rm -rf !(lib|bin|sbin|lib64|libexec|local)
 
 #   Clean up bin and sbin
