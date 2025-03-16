@@ -25,13 +25,11 @@
 	EXC+=")"
 	rm -rf $EXC
 
-#   Nuke some misc stuff, /usr/sbin and /usr/bin
-    rm -rf /var/lib/dpkg
-    rm -rf /var/lib/apt
-    rm -rf /var/cache/debconf
-	rm -rf /var/cache/apt
-    rm -rf /usr/share
-    rm -rf /usr/sbin/*
+#   Nuke anything not needed in the container
+    cd /var && rm -rf !(nothing)
+    cd /etc && rm -rf apt dpkg
+    cd /usr && rm -rf !(lib|bin|sbin|lib64|libexec|local)
 
-    cd /usr/bin
-    rm !(busybox)
+#   Clean up bin and sbin
+    cd /usr/sbin && rm !(nothing)
+    cd /usr/bin  && rm !(busybox)
