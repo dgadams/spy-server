@@ -2,7 +2,7 @@
 #
 # D. G. Adams 2025-March-11
 #
-FROM debian:trixie-slim AS dga-build
+FROM debian:bookworm-slim AS dga-build
 WORKDIR /
 
 ADD https://github.com/airspy/airspyhf/archive/master.zip .
@@ -27,7 +27,7 @@ RUN  tar -xzf spy.tgz && rm spy.tgz
 ########################################################
 # Layer to build the filesystem. Loads dependancies then muntz files.
 
-FROM debian:trixie-slim AS dga-filesystem
+FROM debian:bookworm-slim AS dga-filesystem
 WORKDIR /spy
 COPY --from=dga-build /spy /spy
 COPY --from=dga-build /usr/local/lib  /usr/local/lib
