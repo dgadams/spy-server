@@ -1,6 +1,6 @@
 # Dockerfile to build spyserver image
 #
-# D. G. Adams 2025-March-11
+# D. G. Adams 2025-09-29
 #
 FROM debian:bookworm-slim AS dga-build
 WORKDIR /
