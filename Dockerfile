@@ -1,7 +1,9 @@
 # Dockerfile to build spyserver image
 #
-# D. G. Adams 2025-09-29
+# D. G. Adams 2025-12-05
 #
+# Notes: As of Dec 2025 this only builds correctly with bookworm
+
 FROM debian:bookworm-slim AS dga-build
 WORKDIR /
 
@@ -31,16 +33,15 @@ FROM debian:bookworm-slim AS dga-filesystem
 WORKDIR /spy
 COPY --from=dga-build /spy /spy
 COPY --from=dga-build /usr/local/lib  /usr/local/lib
-COPY spy-muntz.sh .
+COPY muntz.sh .
+
 RUN <<EOR
     apt-get -yq update
     apt-get -yq install libusb-1.0-0 busybox
-    apt-get clean
 
-#   Remove lots of unneeded files and install busybox
-    ./spy-muntz.sh
+    bash muntz.sh
     /bin/busybox --install -s
-    rm spy-muntz.sh
+    rm muntz.sh
 EOR
 #####################################################################
 # Copy filesystem to scratch base image which removes deleted files.
@@ -50,4 +51,4 @@ COPY --from=dga-filesystem / /
 EXPOSE 5555
 USER nobody
 WORKDIR /spy
-CMD ["/spy/spyserver", "/spy/spyserver.config"]
+CMD ["/spy/spyserver", "/spy/spyserver.config", "2>>&1"]
