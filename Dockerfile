@@ -34,8 +34,8 @@ WORKDIR /spy
 COPY --from=dga-build /spy /spy
 COPY --from=dga-build /usr/local/lib  /usr/local/lib
 
-SHELL ["/bin/bash", "-c"]
 RUN <<EOR
+#!/bin/bash
     apt-get -yq update
     apt-get -yq install libusb-1.0-0 busybox
 
@@ -58,9 +58,8 @@ RUN <<EOR
     cd /usr/bin     && rm !(busybox|bash)
 
     /bin/busybox --install -s
+    rm /bin/bash
 EOR
-SHELL ["/bin/sh", "-c"]
-RUN rm /bin/bash
 
 #####################################################################
 # Copy filesystem to scratch base image which removes deleted files.
