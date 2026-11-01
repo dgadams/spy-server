@@ -4,6 +4,7 @@
 #
 # Notes: As of Dec 2025 this only builds correctly with bookworm
 
+#FROM debian:trixie-slim AS dga-build
 FROM debian:bookworm-slim AS dga-build
 WORKDIR /
 
@@ -23,12 +24,15 @@ EOR
 
 # Download spyserver binary
 WORKDIR /spy
-ADD  https://airspy.com/?ddownload=4262EOF ./spy.tgz
+ADD https://airspy.com/downloads/spyserver-linux-x64.tgz ./spy.tgz
+#ADD  https://airspy.com/?ddownload=4262 ./spy.tgz
+#ADD  https://airspy.com/?ddownload=4262EOF ./spy.tgz
 RUN  tar -xzf spy.tgz && rm spy.tgz
 
 ########################################################
 # Layer to build the filesystem. Loads dependancies then muntz files.
 
+#FROM debian:trixie-slim AS dga-filesystem
 FROM debian:bookworm-slim AS dga-filesystem
 WORKDIR /spy
 COPY --from=dga-build /spy /spy
@@ -70,3 +74,7 @@ EXPOSE 5555
 USER nobody
 WORKDIR /spy
 CMD ["/spy/spyserver", "/spy/spyserver.config", "2>>&1"]
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD pidof spyserver || exit 1
+  
