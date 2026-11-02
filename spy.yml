@@ -1,0 +1,27 @@
+# Public web server
+# this server connects to a hf+ usb device
+#
+# D. G. Adams 2024-Aug-16
+#
+name: spy-server
+services:
+  spy-server:
+    container_name: spy-server
+    image: dgadams/spy-server:latest
+    restart: unless-stopped
+    devices:
+      - /dev/bus/usb
+    ports:
+      - 5555:5555
+    environment:
+      - SPYSERVER_BIND_ADDRESS='::'
+      - SPYSERVER_BIND_PORT=5555
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway" 
+    healthcheck:
+      test: echo -n | nc -w 2 host.docker.internal 5555
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s

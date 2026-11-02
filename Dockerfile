@@ -75,6 +75,4 @@ USER nobody
 WORKDIR /spy
 CMD ["/spy/spyserver", "/spy/spyserver.config", "2>>&1"]
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD pidof spyserver || exit 1
   
