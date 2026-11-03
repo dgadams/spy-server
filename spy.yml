@@ -1,8 +1,5 @@
-# Public web server
-# this server connects to a hf+ usb device
-#
-# D. G. Adams 2024-Aug-16
-#
+# D. G. Adams 20264-Nov-01
+
 name: spy-server
 services:
   spy-server:
