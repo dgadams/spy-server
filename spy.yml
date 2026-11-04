@@ -7,18 +7,13 @@ services:
     image: dgadams/spy-server:latest
     restart: unless-stopped
     devices:
-      - /dev/bus/usb
+      - /dev/bus/usb:/dev/bus/usb
     ports:
       - 5555:5555
-    environment:
-      - SPYSERVER_BIND_ADDRESS='::'
-      - SPYSERVER_BIND_PORT=5555
 
-    extra_hosts:
-      - "host.docker.internal:host-gateway" 
     healthcheck:
-      test: echo -n | nc -w2 host.docker.internal 5555
+      test: echo -n | nc -w1 127.0.0.1 5555
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 15s
+      start_period: 10s
